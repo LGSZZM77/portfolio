@@ -1,30 +1,42 @@
-'use client';
+"use client";
+
+import { useState } from "react";
 
 export default function Header() {
   const buttons = [
-    { label: '홈', id: 'home' },
-    { label: '스택', id: 'stack' },
-    { label: '프로젝트', id: 'project' },
-    { label: '연락하기', id: 'call' },
+    { label: "Home", id: "home" },
+    { label: "Stack", id: "stack" },
+    { label: "Project", id: "project" },
+    { label: "Contact", id: "contact" },
   ];
+
+  const [activeId, setActiveId] = useState(buttons[0].id);
 
   const handleScroll = (id: string) => {
     const section = document.getElementById(id);
-    section?.scrollIntoView({ behavior: 'smooth' });
+    section?.scrollIntoView({ behavior: "smooth" });
+    setActiveId(id);
   };
 
   return (
-    <div className="fixed top-0 w-full h-15 flex items-center justify-center">
-      <div className="w-8/10 h-10 border-2 border-green-700 flex items-center justify-center gap-6 text-lg">
-        {buttons.map((button) => (
-          <button
-            className="hover:text-red-400 cursor-pointer transition-colors delay-150 ease-in-out"
-            key={button.id}
-            onClick={() => handleScroll(button.id)}>
-            {button.label}
-          </button>
-        ))}
+    <header className="fixed top-6 z-50 flex h-10 w-full items-center justify-center sm:h-12">
+      <div className="flex h-full items-center rounded-full bg-white/80 px-3 shadow-lg shadow-black/5 backdrop-blur-sm">
+        <div className="flex h-3/4 items-center justify-between text-[0.9rem] font-medium text-gray-500 sm:gap-5">
+          {buttons.map((button) => {
+            const isActive = activeId === button.id;
+
+            return (
+              <button
+                className={`h-full cursor-pointer rounded-full px-3 transition-colors ${isActive ? "bg-gray-100 text-gray-950" : "hover:bg-gray-50 hover:text-gray-950"} `}
+                key={button.id}
+                onClick={() => handleScroll(button.id)}
+              >
+                {button.label}
+              </button>
+            );
+          })}
+        </div>
       </div>
-    </div>
+    </header>
   );
 }

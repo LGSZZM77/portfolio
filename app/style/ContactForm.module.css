@@ -1,0 +1,35 @@
+.contactForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 50%;
+}
+
+.contactForm > label input,
+.contactForm select {
+  border: 1px solid #dcdcdc;
+  height: 60px;
+  padding: 0 12px;
+  border-radius: 8px;
+}
+.contactForm > label textarea {
+  border: 1px solid #dcdcdc;
+  height: 120px;
+  padding: 16px 12px;
+  resize: none;
+  border-radius: 8px;
+}
+
+.contactForm button[type="submit"] {
+  width: 20%;
+  aspect-ratio: 10 / 3;
+  background-color: #121212;
+  color: #f1f1f1;
+  border-radius: 40px;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}

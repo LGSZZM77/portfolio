@@ -1,24 +1,25 @@
-import Call from './components/Call';
-import Intro from './components/Intro';
-import Project from './components/Project';
-import Stack from './components/Stack';
+import Contact from "./Contact/page";
+import Intro from "./Intro/page";
+import Project from "./Project/page";
+import Stack from "./Stack/page";
 
 export default function Home() {
   const sections = [
-    { component: Intro, id: 'home' },
-    { component: Stack, id: 'stack' },
-    { component: Project, id: 'project' },
-    { component: Call, id: 'call' },
+    { component: Intro, id: "home" },
+    { component: Stack, id: "stack" },
+    { component: Project, id: "project" },
+    { component: Contact, id: "contact" },
   ];
 
   return (
     <div>
       {sections.map(({ component: SectionComponent, id }) => (
         <section
-          className="h-screen w-full pt-15 flex justify-center items-center bg-red-100"
+          className="flex min-h-screen w-full scroll-mt-16 justify-center sm:scroll-mt-18"
           key={id}
-          id={id}>
-          <div className="w-8/10 h-full bg-blue-300">
+          id={id}
+        >
+          <div className="h-full w-8/10">
             <SectionComponent />
           </div>
         </section>
