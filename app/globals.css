@@ -1,10 +1,32 @@
 @import "tailwindcss";
 
-body {
-  background-color: #0d1117;
-  color: white;
+@theme {
+  --font-pretendard: var(--font-pretendard);
 }
 
-button {
-  cursor: pointer;
+@layer base {
+  body {
+    background-color: #0d1117;
+    color: white;
+    font-family:
+      var(--font-pretendard), ui-sans-serif, system-ui, sans-serif !important;
+  }
+
+  .section {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 4rem;
+    padding: 0 1rem;
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+
+  .section_title {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    font-weight: 900;
+    letter-spacing: -0.025em;
+  }
 }

@@ -9,25 +9,25 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Intro() {
   useGSAP(() => {
     gsap
-      .timeline({ repeat: -1, repeatDelay: 0 })
+      .timeline({ repeat: -1, defaults: { ease: "power2.out" } })
       .fromTo(
         "#wheel",
-        { y: -8, opacity: 0 },
-        { y: 6, opacity: 1, duration: 1.5, ease: "power2.out" },
+        { y: "-70%", opacity: 0 },
+        { y: "200%", opacity: 1, duration: 1.2 },
       )
       .to("#wheel", {
-        y: 10,
+        y: "300%",
         opacity: 0,
-        duration: 0.2,
-        ease: "power2.out",
+        duration: 0.4,
+        ease: "power2.in",
       });
 
     gsap.to("#mouse", {
       opacity: 0,
-      duration: 0.5,
+      duration: 0.4,
       scrollTrigger: {
         trigger: "body",
-        start: "top",
+        start: "top top",
         toggleActions: "play none none reverse",
       },
     });

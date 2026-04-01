@@ -1,95 +1,37 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
-import { STACK_DATA } from "../../data/stackData";
-import { ScrollTrigger } from "gsap/all";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
+import { STACK_DATA, type StackItem } from "../../data/stackData";
 
 type CategoryKey = keyof typeof STACK_DATA;
-type FilterKey = CategoryKey | "all";
-
-type FlatStackItem = {
-  stack: string;
-  img: string;
-  category: CategoryKey;
+type CategoryValue = {
+  label: string;
+  items: StackItem[];
 };
 
-gsap.registerPlugin(ScrollTrigger);
-
 export default function StackList() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState<FilterKey>("all");
-
-  useGSAP(
-    () => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 80%",
-        },
-      });
-
-      tl.from("#stack-title", { opacity: 0, y: 30, duration: 0.5 })
-        .from("#stack-tabs", { opacity: 0, y: 20, duration: 0.5 })
-        .from(".stack-item", {
-          opacity: 0,
-          duration: 0.4,
-        });
-    },
-
-    { scope: containerRef },
-  );
-
-  const flatStack: FlatStackItem[] = useMemo(() => {
-    return Object.entries(STACK_DATA).flatMap(([category, value]) =>
-      value.items.map((item) => ({
-        stack: item.stack,
-        img: item.img,
-        category: category as CategoryKey,
-      })),
-    );
-  }, []);
+  const [active, setActive] = useState<CategoryKey>("frontend");
 
   const categories = Object.entries(STACK_DATA) as [
     CategoryKey,
-    (typeof STACK_DATA)[CategoryKey],
+    CategoryValue,
   ][];
+  const activeItems = STACK_DATA[active].items;
 
   return (
-    <div
-      id="skill"
-      ref={containerRef}
-      className="flex w-full flex-col items-center gap-12 px-4 py-16"
-    >
-      <h2 id="stack-title" className="text-4xl font-black tracking-tight">
-        기술 스택 및 도구
-      </h2>
+    <div id="skill" className="section">
+      <h2 className="section_title">해당 기술과 도구로 개발해요</h2>
 
-      <div
-        id="stack-tabs"
-        className="flex flex-wrap justify-center gap-2 rounded-xl bg-slate-100 p-1.5"
-      >
-        <button
-          onClick={() => setActive("all")}
-          className={`rounded-xl px-6 py-2.5 text-sm font-bold transition ${
-            active === "all"
-              ? "bg-white font-black text-black shadow-sm"
-              : "text-slate-400"
-          }`}
-        >
-          전체
-        </button>
-
+      <div className="flex w-135 justify-center gap-2 rounded-full bg-white/5 py-1.5 backdrop-blur-md">
         {categories.map(([key, value]) => (
           <button
             key={key}
             onClick={() => setActive(key)}
-            className={`rounded-xl px-6 py-2.5 text-sm font-bold transition ${
+            className={`rounded-full px-8 py-3 text-sm transition-all ${
               active === key
-                ? "bg-white font-black text-black shadow-sm"
-                : "text-slate-400"
+                ? "bg-white font-bold text-black"
+                : "text-slate-400 hover:text-white"
             }`}
           >
             {value.label}
@@ -97,26 +39,36 @@ export default function StackList() {
         ))}
       </div>
 
-      <div className="grid grid-cols-5 gap-4">
-        {flatStack.map((item) => {
-          const isActive = active === "all" || active === item.category;
-
-          return (
+      <div className="group relative w-7xl overflow-x-scroll">
+        <div className="flex gap-6 px-2 py-4">
+          {activeItems.map((item: StackItem) => (
             <div
               key={item.stack}
-              className={`group/skill relative flex items-center justify-center transition-all duration-300 hover:z-40 ${
-                isActive ? "scale-100 opacity-100" : "scale-90 opacity-20"
-              }`}
+              className="stack-card flex min-w-[calc(25%-18px)] flex-col items-center rounded-3xl bg-[#1a1f26] p-8 shadow-2xl transition-all hover:bg-[#222831]"
             >
-              <div className="stack-item relative flex h-14 w-14 cursor-pointer items-center justify-center rounded-md bg-white p-1 shadow-sm transition-transform hover:scale-110">
-                <Image src={item.img} alt={item.stack} width={44} height={44} />
-                <p className="invisible absolute -bottom-1 left-1/2 z-50 -translate-x-1/2 translate-y-full rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white shadow-xl group-hover/skill:visible">
-                  {item.stack}
+              <div className="mb-8 flex h-24 w-24 items-center justify-center rounded-2xl bg-white/5 p-4">
+                <Image
+                  src={item.img}
+                  alt={item.stack}
+                  width={64}
+                  height={64}
+                  className="object-contain"
+                />
+              </div>
+
+              <h3 className="mb-4 text-xl font-bold text-white">
+                {item.stack.toUpperCase()}
+              </h3>
+
+              <div className="w-full border-t border-white/10 pt-4">
+                <p className="text-sm leading-relaxed text-slate-400">
+                  해당 기술을 활용한 프로젝트 경험 및 숙련도에 대한 설명이
+                  들어갈 자리입니다.
                 </p>
               </div>
             </div>
-          );
-        })}
+          ))}
+        </div>
       </div>
     </div>
   );
