@@ -5,7 +5,10 @@ import About from "./components/About";
 
 export default function Home() {
   return (
-    <div id="main_body" className="flex flex-col gap-15">
+    <div
+      id="main_body"
+      className="bg-background text-foreground flex flex-col gap-15"
+    >
       <Intro />
       <Stack />
       <Project />
