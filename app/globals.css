@@ -12,15 +12,25 @@
 @layer base {
   body {
     @apply bg-background text-foreground font-sans antialiased;
+    overflow-x: hidden;
   }
 
   .section {
-    @apply flex w-full flex-col items-center gap-16 px-4 py-24;
+    @apply flex w-full flex-col items-center gap-8 px-4 py-12;
+    @apply md:gap-12 md:px-6 md:py-16;
+    @apply lg:gap-16 lg:px-8 lg:py-24;
+
+    overflow-x: hidden;
+    width: 100%;
   }
 
   .section_title {
-    @apply text-4xl leading-10 font-black tracking-tight;
+    /* 기본 모바일 설정 */
+    @apply text-2xl leading-8 font-black tracking-tight;
+    @apply md:text-3xl md:leading-9;
+    @apply lg:text-4xl lg:leading-10;
   }
+
   * {
     @apply border-border outline-ring/50;
   }
@@ -79,7 +89,7 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
+  --primary: rgb(177, 99, 163);
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
@@ -114,7 +124,7 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
+  --primary: rgb(177, 99, 163);
   --primary-foreground: oklch(0.205 0 0);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);

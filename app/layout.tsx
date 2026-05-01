@@ -13,6 +13,11 @@ export const metadata: Metadata = {
   description: "안녕하세요 프론트엔드 개발자 이규성입니다",
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 const pretendard = localFont({
   src: "../public/fonts/PretendardVariable.woff2",
   variable: "--font-pretendard",

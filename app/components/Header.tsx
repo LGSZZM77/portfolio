@@ -40,7 +40,7 @@ export default function Header() {
   return (
     <header
       id="header"
-      className={`fixed top-4 right-0 z-50 -translate-x-1/2 rounded-lg ${
+      className={`fixed top-4 right-4 z-50 rounded-lg lg:right-10 ${
         isRoot ? "opacity-0" : "opacity-100"
       }`}
     >
